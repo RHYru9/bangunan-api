@@ -1,61 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dokumentasi API (Format Burp Suite) -> ongoing
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Berikut adalah dokumentasi API Toko Bangunan:
 
-## About Laravel
+## Autentikasi Pengguna
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Pendaftaran Pengguna
+```
+POST /api/auth/daftar HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Type: application/json
+Accept: application/json
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+{
+  "nama": "Nama Lengkap",
+  "email": "user@example.com",
+  "alamat": "Jl. Contoh No. 1",
+  "kode_pos": "12345",
+  "password": "password123",
+  "password_confirmation": "password123"
+}
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Login Pengguna
+```
+POST /api/auth/masuk HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Type: application/json
+Accept: application/json
 
-## Learning Laravel
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Daftar Pengguna
+```
+GET /api/auth/users HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Hapus Pengguna
+```
+DELETE /api/auth/user/123 HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Autentikasi Admin
 
-## Laravel Sponsors
+### Pendaftaran Admin
+```
+POST /api/auth/admin/daftar HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {access_token}
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+{
+  "nama": "Admin Baru",
+  "email": "admin@example.com",
+  "password": "password123",
+  "password_confirmation": "password123"
+}
+```
 
-### Premium Partners
+### Login Admin
+```
+POST /api/auth/admin/login HTTP/1.1
+Host: 127.0.0.1:8000
+Content-Type: application/json
+Accept: application/json
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+```
 
-## Contributing
+### Daftar Admin
+```
+GET /api/auth/admins HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Hapus Admin
+```
+DELETE /api/auth/admin/delete/123 HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
 
-## Code of Conduct
+## Manajemen Produk
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Daftar Barang
+```
+GET /api/produk/barang-list HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
 
-## Security Vulnerabilities
+### Tambah Barang
+```
+POST /api/produk/barang-tambah HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Accept: application/json
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="nama_barang"
 
-## License
+Produk Contoh
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="gambar_barang"; filename="produk.jpg"
+Content-Type: image/jpeg
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+(binary data)
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="harga_barang"
+
+150000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="berat_barang"
+
+2.5
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+```
+
+### Hapus Barang
+```
+DELETE /api/produk/barang-hapus/123 HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer {access_token}
+Accept: application/json
+```
+
+
+### Autentikasi Pengguna
+- `POST /api/auth/daftar` - Mendaftarkan pengguna baru
+- `POST /api/auth/masuk` - Login pengguna
+- `GET /api/auth/users` - Mendapatkan daftar pengguna (memerlukan auth)
+- `DELETE /api/auth/user/{id}` - Menghapus pengguna (memerlukan auth)
+
+### Autentikasi Admin
+- `POST /api/auth/admin/daftar` - Mendaftarkan admin baru (memerlukan auth)
+- `POST /api/auth/admin/login` - Login admin
+- `GET /api/auth/admins` - Mendapatkan daftar admin (memerlukan auth)
+- `DELETE /api/auth/admin/delete/{id}` - Menghapus admin (memerlukan auth)
+
+### Manajemen Produk
+- `GET /api/produk/barang-list` - Mendapatkan daftar barang (memerlukan auth)
+- `POST /api/produk/barang-tambah` - Menambahkan barang baru (memerlukan auth)
+- `DELETE /api/produk/barang-hapus/{id}` - Menghapus barang (memerlukan auth)
+
+## Cara Penggunaan
+
+1. Untuk endpoint yang memerlukan autentikasi, tambahkan header:
+   ```
+   Authorization: Bearer {access_token}
+   ```
+2. Untuk upload gambar, gunakan content-type `multipart/form-data`
+3. Untuk request body, gunakan format JSON kecuali untuk upload file
